@@ -9,15 +9,23 @@ import json
 
 
 #用户id
-ACCOUNT ="8aaf07086ab0c082016ad93155371c82"
+ACCOUNT =""
 #APP_id
-APP_ID = "8aaf07086ab0c082016ad93155831c88"
+APP_ID = ""
 #认证组件
-AUTH_TOKEN = "be42c2f1cf1f470e9d019cbcd2216683"
+AUTH_TOKEN = ""
 
 url = "https://app.cloopen.com:8883/2013-12-26/Accounts/{}/SMS/TemplateSMS".format(ACCOUNT)
 
-def send_msg(iphone,data):
+
+
+def send_msg(iphone,templateId,data):
+    '''
+    iphone 接受方的电话号码
+    templateId 模板id
+    data  按照模板填入的列表
+    返回值 True发送成功，False 发送失败
+    '''
 
     time_str = time.strftime("%Y%m%d%H%M%S")
 
@@ -41,7 +49,7 @@ def send_msg(iphone,data):
     data = {
         "to":iphone,
         "appId":APP_ID,
-        "templateId":"1",
+        "templateId":templateId,
         "datas":data
     }
     resp = requests.post(url,params=params,headers=headers,json=data)
